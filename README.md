@@ -1,0 +1,4 @@
+permutations
+============
+
+Go permutations library
