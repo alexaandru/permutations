@@ -1,16 +1,22 @@
 package utils
 
 import (
-    u "alexaandru/utils"
     "fmt"
+    u "github.com/alexaandru/utils"
     "strconv"
     "strings"
 )
 
+// Permutation holds an int permutation
 type Permutation []int
 
-const Verbose, Quiet = true, false
+// Verbose is an option
+const Verbose = false
 
+// Quiet is an option
+const Quiet = false
+
+// Equal compares two permutations for equality
 func (p *Permutation) Equal(other *Permutation) bool {
     if len(*p) != len(*other) {
         return false
@@ -25,12 +31,14 @@ func (p *Permutation) Equal(other *Permutation) bool {
     return true
 }
 
+// Reverse reverses and negates a permutation range (between n and m)
 func (p *Permutation) Reverse(n, m int) {
     for i := 0; i <= (m-n)/2; i++ {
         (*p)[n+i], (*p)[m-i] = -(*p)[m-i], -(*p)[n+i]
     }
 }
 
+// Index returns the index corresponding to val
 func (p Permutation) Index(val int) int {
     for k, v := range p {
         if v == val || v == -val {
@@ -41,6 +49,7 @@ func (p Permutation) Index(val int) int {
     return -1
 }
 
+// SortByReversal sorts a permutation by reversing segments
 func (p Permutation) SortByReversal(verbose bool) (dist int) {
     iter := func(a, b int) {
         p.Reverse(a, b)
@@ -62,6 +71,7 @@ func (p Permutation) SortByReversal(verbose bool) (dist int) {
     return
 }
 
+// CountBreakPoints counts the breaks between contiguous ranges in the permutation
 func (p Permutation) CountBreakPoints() (count int) {
     for i := 1; i < len(p); i++ {
         a, b := u.AbsInt(p[i-1]), u.AbsInt(p[i])
@@ -90,6 +100,7 @@ func (p Permutation) String() string {
     return "(" + strings.Join(out, " ") + ")"
 }
 
+// IdentityPermutation returns the identity permutation
 func IdentityPermutation(n int) (per Permutation) {
     per = make(Permutation, n)
 
@@ -100,6 +111,7 @@ func IdentityPermutation(n int) (per Permutation) {
     return
 }
 
+// LoadPermutationFromFile loads a permutation from file
 func LoadPermutationFromFile(fname string) (per Permutation) {
     data := u.LoadFile(fname)
     tokens := strings.Split(data[1:len(data)-1], " ")
