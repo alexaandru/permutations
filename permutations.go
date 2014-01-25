@@ -1,8 +1,8 @@
-package utils
+package permutation
 
 import (
     "fmt"
-    u "github.com/alexaandru/utils"
+    "github.com/alexaandru/utils"
     "strconv"
     "strings"
 )
@@ -74,7 +74,7 @@ func (p Permutation) SortByReversal(verbose bool) (dist int) {
 // CountBreakPoints counts the breaks between contiguous ranges in the permutation
 func (p Permutation) CountBreakPoints() (count int) {
     for i := 1; i < len(p); i++ {
-        a, b := u.AbsInt(p[i-1]), u.AbsInt(p[i])
+        a, b := utils.AbsInt(p[i-1]), utils.AbsInt(p[i])
         if a+1 != b && a-1 != b {
             count++
         }
@@ -113,11 +113,11 @@ func IdentityPermutation(n int) (per Permutation) {
 
 // LoadPermutationFromFile loads a permutation from file
 func LoadPermutationFromFile(fname string) (per Permutation) {
-    data := u.LoadFile(fname)
+    data := utils.LoadFile(fname)
     tokens := strings.Split(data[1:len(data)-1], " ")
     xs := make([]int, len(tokens))
     for k, v := range tokens {
-        xs[k] = u.ParseInt(v)
+        xs[k] = utils.ParseInt(v)
     }
 
     return Permutation(xs)

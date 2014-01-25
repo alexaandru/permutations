@@ -1,4 +1,4 @@
-package utils
+package permutation
 
 import (
     "fmt"
